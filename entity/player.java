@@ -14,7 +14,7 @@ public class player extends Entity {
     keyhandler keyH;
     public final int screenX;
     public final int screenY;
-    int hasKey=0;
+    public int hasKey=0;
 
     
     public player(gamepanel gp,keyhandler keyH){
@@ -108,6 +108,7 @@ public class player extends Entity {
                     hasKey++;
                     gp.obj[i]=null;
                     gp.playSE(1);
+                    gp.UI.showMessage("You got key!!!");
                     break;
                 case "door":
                     if(hasKey>0){
@@ -115,10 +116,15 @@ public class player extends Entity {
                         hasKey--;
                         gp.playSE(3);
                     }
+                    else{
+                        gp.UI.showMessage("You don't have a key");
+                    }
                     break;
                 case "boots":
                     speed+=2;
                     gp.obj[i]=null;
+                    gp.UI.showMessage("Speed up!!!");
+
                     break;
     
 

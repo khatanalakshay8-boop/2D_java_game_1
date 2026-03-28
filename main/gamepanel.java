@@ -32,6 +32,9 @@ public class gamepanel extends JPanel implements Runnable {
     public TileManager tilemanager=new TileManager(this);
     keyhandler keyH=new keyhandler();
     sound sou=new sound();
+    sound sou2=new sound();
+    public ui UI=new ui(this);
+    
 
     Thread gameThread;
     public CollisionChecker cChecker=new CollisionChecker(this);
@@ -98,6 +101,7 @@ public class gamepanel extends JPanel implements Runnable {
             }
         }
         Player.draw(g2);
+        UI.draw(g2);
         
         g2.dispose();
 
@@ -112,7 +116,7 @@ public class gamepanel extends JPanel implements Runnable {
         sou.stop();
     }
     public void playSE(int i){
-        sou.setFile(i);
-        sou.play();
+        sou2.setFile(i);
+        sou2.play();
     }
 }
