@@ -126,6 +126,11 @@ public class player extends Entity {
                     gp.UI.showMessage("Speed up!!!");
 
                     break;
+                case "chest":
+                    gp.UI.gameFinished=true;
+                    gp.stopMusic();
+                    gp.playSE(4);
+                    break;
     
 
             }
