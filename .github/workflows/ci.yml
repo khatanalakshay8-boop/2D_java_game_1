@@ -1,46 +1,35 @@
-name: Simple Java CI
+name: Java Tests (JUnit 5)
 
 on:
   push:
-    branches: ["main"]
+  pull_request:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          distribution: temurin
+          java-version: 17
 
-      - name: Build
+      - name: Download JUnit Console
         run: |
-          if [ -f "pom.xml" ]; then
-            mvn clean install
-          elif [ -f "build.gradle" ]; then
-            chmod +x gradlew
-            ./gradlew build
-          else
-            echo "No build tool found"
-          fi
+          curl -L -o junit-platform-console-standalone.jar \
+          https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.3/junit-platform-console-standalone-1.10.3.jar
+
+      - name: Compile
+        run: |
+          find . -name "*.java" > sources.txt
+          javac -cp ".:junit-platform-console-standalone.jar" @sources.txt
 
       - name: Run tests
         run: |
-          if [ -f "pom.xml" ]; then
-            mvn test
-          elif [ -f "build.gradle" ]; then
-            ./gradlew test
-          fi
-
-      - name: Upload game (JAR)
-        uses: actions/upload-artifact@v4
-        with:
-          name: game-build
-          path: |
-            target/*.jar
-            build/libs/*.jar
+          java -jar junit-platform-console-standalone.jar \
+            --class-path . \
+            --scan-class-path
