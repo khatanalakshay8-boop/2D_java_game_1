@@ -3,47 +3,77 @@ package test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import entity.player;
+import main.gamepanel;
+import main.keyhandler;
+import main.CollisionChecker; // adjust if name differs
 
 public class PlayerTest {
 
     player p;
+    gamepanel gp;
+    keyhandler keyH;
 
     @BeforeEach
     void setup() {
-        p = new player(null, null);
+        gp = new gamepanel();
+        keyH = new keyhandler();
+
+        // Ensure required dependencies exist
+        gp.cChecker = new CollisionChecker(gp);
+
+        p = new player(gp, keyH);
         p.speed = 5;
+
+        // reset keys
+        resetKeys();
+    }
+
+    void resetKeys() {
+        keyH.upPressed = false;
+        keyH.downPressed = false;
+        keyH.leftPressed = false;
+        keyH.rightPressed = false;
     }
 
     @Test
     void testMoveUp() {
         int startY = p.worldY;
-        p.direction = "up";
+
+        keyH.upPressed = true;
         p.update();
+
         assertTrue(p.worldY < startY);
     }
 
     @Test
     void testMoveDown() {
         int startY = p.worldY;
-        p.direction = "down";
+
+        keyH.downPressed = true;
         p.update();
+
         assertTrue(p.worldY > startY);
     }
 
     @Test
     void testMoveLeft() {
         int startX = p.worldX;
-        p.direction = "left";
+
+        keyH.leftPressed = true;
         p.update();
+
         assertTrue(p.worldX < startX);
     }
 
     @Test
     void testMoveRight() {
         int startX = p.worldX;
-        p.direction = "right";
+
+        keyH.rightPressed = true;
         p.update();
+
         assertTrue(p.worldX > startX);
     }
 
@@ -52,7 +82,7 @@ public class PlayerTest {
         int startX = p.worldX;
         int startY = p.worldY;
 
-        p.direction = "";
+        resetKeys(); // no keys pressed
         p.update();
 
         assertEquals(startX, p.worldX);
