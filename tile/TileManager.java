@@ -43,7 +43,7 @@ public class TileManager {
         UtilityTool uTool= new UtilityTool();
         try {
             tile[index]= new Tile();
-            tile[index].image=ImageIO.read(getClass().getResourceAsStream("../images/tiles/"+imagePath+".png"));
+            tile[index].image=ImageIO.read(getClass().getResourceAsStream("/images/tiles/"+imagePath+".png"));
             tile[index].image=uTool.scaleImage(tile[index].image,gp.tileSize,gp.tileSize);
             tile[index].collision=collision;
         }catch(IOException e){
@@ -55,7 +55,7 @@ public class TileManager {
 
     public void loadMap(){
         try{
-            InputStream is=getClass().getResourceAsStream("../maps/world01.txt");
+            InputStream is=getClass().getResourceAsStream("/maps/world01.txt");
             BufferedReader br=new BufferedReader(new InputStreamReader(is));
             int col=0;
             int row=0;

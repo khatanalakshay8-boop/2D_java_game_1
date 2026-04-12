@@ -51,7 +51,7 @@ public class player extends Entity {
         BufferedImage scaledImage=null;
 
         try {
-            scaledImage =  ImageIO.read(getClass().getResourceAsStream("../images/walk_sprites/"+imageName+".png"));
+            scaledImage =  ImageIO.read(getClass().getResourceAsStream("/images/walk_sprites/"+imageName+".png"));
             scaledImage= uTool.scaleImage(scaledImage, gp.tileSize,gp.tileSize);
         }catch(IOException e){
             e.printStackTrace();
