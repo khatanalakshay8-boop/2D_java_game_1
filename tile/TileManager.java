@@ -94,16 +94,12 @@ public class TileManager {
             int screenX=worldX-gp.Player.worldX+gp.Player.screenX;
             int screenY=worldY-gp.Player.worldY+gp.Player.screenY;
 
-            if (worldX +gp.tileSize > gp.Player.worldX - gp.Player.screenX &&
-worldX - gp.tileSize < gp.Player.worldX + gp.Player.screenX &&
-worldY + gp.tileSize > gp.Player.worldY - gp.Player.screenY &&
-worldY - gp.tileSize < gp.Player.worldY + gp.Player.screenY)
-           { g2.drawImage(tile[tileNum].image, screenX, screenY,null);}
+             g2.drawImage(tile[tileNum].image, screenX, screenY,null);}
             worldCol++;
             if(worldCol==gp.maxWorldCol){
                 worldCol=0;
                 worldRow++;
-            }
+            
         }
     } 
 }
